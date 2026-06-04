@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -30,6 +30,33 @@ export default function Navbar() {
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
+
+  // Lock body scroll when menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  // Close on Escape key
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        setIsOpen(false);
+      }
+    },
+    [isOpen]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [handleKeyDown]);
 
   return (
     <motion.header
@@ -70,6 +97,7 @@ export default function Navbar() {
                     ? "text-accent"
                     : "text-text-muted hover:text-text-primary"
                 }`}
+                aria-current={isActive ? "page" : undefined}
               >
                 {link.label}
                 {isActive && (
@@ -102,7 +130,7 @@ export default function Navbar() {
         {/* Mobile Toggle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden p-2 text-text-muted hover:text-text-primary transition-colors"
+          className="md:hidden flex items-center justify-center w-11 h-11 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface transition-colors"
           aria-label={isOpen ? "Close menu" : "Open menu"}
           aria-expanded={isOpen}
         >
@@ -110,41 +138,88 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Full-Screen Overlay Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden nav-blur border-b border-border overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden fixed inset-0 top-16 z-40"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile menu"
           >
-            <div className="px-4 py-4 space-y-1">
-              {navLinks.map((link) => {
-                const isActive =
-                  link.href === "/"
-                    ? pathname === "/"
-                    : pathname.startsWith(link.href);
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                      isActive
-                        ? "text-accent bg-accent/10"
-                        : "text-text-muted hover:text-text-primary hover:bg-surface"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                );
-              })}
-              <div className="pt-3 border-t border-border mt-3">
-                <Button href="/contact" size="sm" className="w-full">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-bg/95 backdrop-blur-xl"
+              onClick={() => setIsOpen(false)}
+            />
+
+            {/* Menu content */}
+            <div className="relative z-10 flex flex-col h-full px-6 pt-8 pb-12 safe-bottom">
+              {/* Decorative glow */}
+              <div className="glow-mint -top-40 -right-20 opacity-30" />
+              <div className="glow-violet top-1/2 -left-32 opacity-20" />
+
+              {/* Nav links */}
+              <div className="flex-1 flex flex-col justify-center gap-2">
+                {navLinks.map((link, i) => {
+                  const isActive =
+                    link.href === "/"
+                      ? pathname === "/"
+                      : pathname.startsWith(link.href);
+                  return (
+                    <motion.div
+                      key={link.href}
+                      initial={{ opacity: 0, x: -30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -30 }}
+                      transition={{ delay: i * 0.06, duration: 0.3 }}
+                    >
+                      <Link
+                        href={link.href}
+                        className={`block px-4 py-4 rounded-xl text-2xl font-heading font-semibold transition-colors ${
+                          isActive
+                            ? "text-accent bg-accent/5"
+                            : "text-text-primary hover:text-accent hover:bg-surface/50"
+                        }`}
+                        aria-current={isActive ? "page" : undefined}
+                      >
+                        {link.label}
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </div>
+
+              {/* Bottom section */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ delay: 0.3, duration: 0.3 }}
+                className="space-y-4 pt-6 border-t border-border"
+              >
+                {/* Available badge */}
+                <div className="flex items-center gap-2 px-3 py-2 rounded-xl border border-accent/20 bg-accent/5 w-fit">
+                  <span className="relative flex h-2 w-2">
+                    <span className="pulse-dot absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
+                  </span>
+                  <span className="text-sm text-accent font-medium">
+                    Available for Projects
+                  </span>
+                </div>
+
+                <Button href="/contact" size="lg" className="w-full">
                   Hire Us
                 </Button>
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         )}

@@ -14,6 +14,8 @@ export interface Service {
   icon: LucideIcon;
   features: string[];
   startingPrice: string;
+  cardImage: string;
+  rarity: "Common" | "Rare" | "Epic" | "Legendary";
 }
 
 export const services: Service[] = [
@@ -29,6 +31,8 @@ export const services: Service[] = [
       "E-commerce platforms",
     ],
     startingPrice: "$2,500",
+    cardImage: "/cards/webapp.jpg",
+    rarity: "Epic",
   },
   {
     title: "UI/UX Design",
@@ -42,6 +46,8 @@ export const services: Service[] = [
       "Design system creation",
     ],
     startingPrice: "$1,500",
+    cardImage: "/cards/uiux.jpg",
+    rarity: "Rare",
   },
   {
     title: "API & Backend",
@@ -55,6 +61,8 @@ export const services: Service[] = [
       "Authentication & security",
     ],
     startingPrice: "$3,000",
+    cardImage: "/cards/backend.jpg",
+    rarity: "Epic",
   },
   {
     title: "Full-Stack Projects",
@@ -68,6 +76,8 @@ export const services: Service[] = [
       "Post-launch support & maintenance",
     ],
     startingPrice: "$5,000",
+    cardImage: "/cards/fullstack.jpg",
+    rarity: "Legendary",
   },
   {
     title: "Mobile-First Solutions",
@@ -81,6 +91,8 @@ export const services: Service[] = [
       "Cross-browser compatibility",
     ],
     startingPrice: "$2,000",
+    cardImage: "/cards/mobile.jpg",
+    rarity: "Rare",
   },
   {
     title: "Security & Performance",
@@ -94,6 +106,8 @@ export const services: Service[] = [
       "Monitoring & alerting setup",
     ],
     startingPrice: "$1,800",
+    cardImage: "/cards/security.jpg",
+    rarity: "Epic",
   },
 ];
 

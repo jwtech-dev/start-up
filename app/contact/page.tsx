@@ -1,266 +1,304 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import SectionTitle from "@/components/ui/SectionTitle";
 import Button from "@/components/ui/Button";
-import { team } from "@/data/team";
-import { Send, MapPin, Mail, Clock } from "lucide-react";
+import Input from "@/components/ui/Input";
+import Select from "@/components/ui/Select";
+import Textarea from "@/components/ui/Textarea";
+import {
+  Mail,
+  MapPin,
+  Clock,
+  Github,
+  Linkedin,
+  Twitter,
+  Send,
+  CheckCircle2,
+} from "lucide-react";
 
-const budgetRanges = [
-  "Under $1,000",
-  "$1,000 - $3,000",
-  "$3,000 - $5,000",
-  "$5,000 - $10,000",
-  "$10,000+",
+const contactInfo = [
+  {
+    icon: Mail,
+    label: "Email",
+    value: "hello@j-warriors.dev",
+    href: "mailto:hello@j-warriors.dev",
+  },
+  {
+    icon: MapPin,
+    label: "Location",
+    value: "Remote — Worldwide",
+    href: null,
+  },
+  {
+    icon: Clock,
+    label: "Response Time",
+    value: "Within 24 hours",
+    href: null,
+  },
 ];
 
-const timelines = [
-  "ASAP",
-  "Within 2 weeks",
-  "Within 1 month",
-  "Within 3 months",
-  "No rush",
+const socialLinks = [
+  { icon: Github, href: "https://github.com", label: "GitHub" },
+  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+  { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
 ];
+
+const serviceOptions = [
+  { value: "webapp", label: "Web App Development" },
+  { value: "uiux", label: "UI/UX Design" },
+  { value: "backend", label: "API & Backend" },
+  { value: "fullstack", label: "Full-Stack Project" },
+  { value: "consultation", label: "Technical Consultation" },
+];
+
+const budgetOptions = [
+  { value: "small", label: "Under $1,000" },
+  { value: "medium", label: "$1,000 – $5,000" },
+  { value: "large", label: "$5,000 – $15,000" },
+  { value: "enterprise", label: "$15,000+" },
+];
+
+interface FormErrors {
+  name?: string;
+  email?: string;
+  message?: string;
+}
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    type: "",
+    budget: "",
+    message: "",
+  });
+
+  const validate = (): boolean => {
+    const newErrors: FormErrors = {};
+    if (!formData.name.trim()) newErrors.name = "Name is required";
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+    if (!formData.message.trim()) newErrors.message = "Please describe your project";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validate()) return;
     setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 4000);
+    setFormData({ name: "", email: "", type: "", budget: "", message: "" });
+    setErrors({});
+    setTimeout(() => setSubmitted(false), 5000);
+  };
+
+  const handleChange = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    if (errors[field as keyof FormErrors]) {
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
   };
 
   return (
-    <div className="py-16 sm:py-24">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle
-          title="Let's Talk"
-          subtitle="Tell us about your project. We'll get back to you within 24 hours."
-        />
+    <section className="py-12 sm:py-20 lg:py-24" aria-label="Contact">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Hero */}
+        <div className="relative mb-4">
+          <div className="glow-mint -top-40 -left-20 opacity-30" />
+          <div className="glow-violet -top-20 right-0 opacity-20" />
+          <div className="relative z-10">
+            <SectionTitle
+              badge="Contact Us"
+              title="Let's Talk"
+              subtitle="Ready to bring your idea to life? We'd love to hear about it."
+            />
+          </div>
+        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="space-y-8"
-          >
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 sm:gap-12">
+          {/* Contact Info Sidebar */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Info cards */}
+            <div className="space-y-3">
+              {contactInfo.map((info, i) => (
+                <motion.div
+                  key={info.label}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.1, duration: 0.4 }}
+                  className="card-glow p-4 sm:p-5 rounded-xl border border-border bg-surface/50 hover:border-accent/20 flex items-start gap-4"
+                >
+                  <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
+                    <info.icon size={18} className="text-accent" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-text-muted mb-0.5">{info.label}</div>
+                    {info.href ? (
+                      <a
+                        href={info.href}
+                        className="text-sm font-medium text-text-primary hover:text-accent transition-colors"
+                      >
+                        {info.value}
+                      </a>
+                    ) : (
+                      <span className="text-sm font-medium text-text-primary">
+                        {info.value}
+                      </span>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Social links */}
             <div>
-              <h3 className="font-heading font-semibold text-lg text-text-primary mb-6">
-                Get in Touch
-              </h3>
-              <div className="space-y-5">
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
-                    <Mail size={16} className="text-accent" />
-                  </div>
-                  <div>
-                    <div className="text-sm font-medium text-text-primary">
-                      Email
-                    </div>
-                    <div className="text-sm text-text-muted">
-                      hello@j-warriors.dev
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-violet/10 flex items-center justify-center shrink-0">
-                    <MapPin size={16} className="text-violet" />
-                  </div>
-                  <div>
-                    <div className="text-sm font-medium text-text-primary">
-                      Location
-                    </div>
-                    <div className="text-sm text-text-muted">
-                      Remote — Worldwide
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
-                    <Clock size={16} className="text-accent" />
-                  </div>
-                  <div>
-                    <div className="text-sm font-medium text-text-primary">
-                      Response Time
-                    </div>
-                    <div className="text-sm text-text-muted">
-                      Within 24 hours
-                    </div>
-                  </div>
-                </div>
+              <h3 className="text-sm text-text-muted mb-3 font-medium">Find us online</h3>
+              <div className="flex gap-3">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-11 h-11 rounded-lg border border-border bg-surface flex items-center justify-center text-text-muted hover:text-accent hover:border-accent/30 transition-all"
+                    aria-label={social.label}
+                  >
+                    <social.icon size={18} />
+                  </a>
+                ))}
               </div>
             </div>
 
-            {/* Available badge */}
+            {/* Availability */}
             <div className="p-5 rounded-xl border border-accent/20 bg-accent/5">
               <div className="flex items-center gap-2 mb-2">
-                <span className="relative flex h-2.5 w-2.5">
+                <span className="relative flex h-2 w-2">
                   <span className="pulse-dot absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
                 </span>
-                <span className="text-sm font-medium text-accent">
+                <span className="text-sm text-accent font-medium">
                   Currently Available
                 </span>
               </div>
-              <p className="text-xs text-text-muted">
-                We&apos;re taking on new projects. Typical turnaround: 1-8 weeks.
+              <p className="text-xs text-text-muted leading-relaxed">
+                We&apos;re accepting new projects. Average response time is under 24 hours.
               </p>
             </div>
-          </motion.div>
+          </div>
 
           {/* Form */}
-          <motion.form
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            onSubmit={handleSubmit}
-            className="lg:col-span-2 space-y-5"
-          >
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div>
-                <label
-                  htmlFor="contact-name"
-                  className="block text-sm text-text-muted mb-2"
+          <div className="lg:col-span-3">
+            <AnimatePresence mode="wait">
+              {submitted ? (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  className="text-center py-20 rounded-2xl border border-success/20 bg-success-muted"
                 >
-                  Name *
-                </label>
-                <input
-                  id="contact-name"
-                  type="text"
-                  required
-                  placeholder="Your name"
-                  className="w-full px-4 py-3 rounded-lg bg-surface border border-border text-text-primary text-sm placeholder:text-text-muted/50 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-colors"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="contact-email"
-                  className="block text-sm text-text-muted mb-2"
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 }}
+                  >
+                    <CheckCircle2 size={48} className="text-success mx-auto mb-4" />
+                  </motion.div>
+                  <h3 className="font-heading font-bold text-xl text-text-primary mb-2">
+                    Message Sent Successfully!
+                  </h3>
+                  <p className="text-sm text-text-muted">
+                    Thank you for reaching out. We&apos;ll get back to you within 24 hours.
+                  </p>
+                </motion.div>
+              ) : (
+                <motion.form
+                  key="form"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  onSubmit={handleSubmit}
+                  noValidate
+                  className="space-y-5 p-6 sm:p-8 rounded-2xl border border-border bg-surface/30"
                 >
-                  Email *
-                </label>
-                <input
-                  id="contact-email"
-                  type="email"
-                  required
-                  placeholder="your@email.com"
-                  className="w-full px-4 py-3 rounded-lg bg-surface border border-border text-text-primary text-sm placeholder:text-text-muted/50 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-colors"
-                />
-              </div>
-            </div>
+                  <h2 className="font-heading font-bold text-xl text-text-primary mb-2">
+                    Send Us a Message
+                  </h2>
+                  <p className="text-sm text-text-muted mb-6">
+                    Fill out the form below and we&apos;ll get back to you as soon as possible.
+                  </p>
 
-            {/* Service select */}
-            <div>
-              <label
-                htmlFor="contact-service"
-                className="block text-sm text-text-muted mb-2"
-              >
-                What do you need? *
-              </label>
-              <select
-                id="contact-service"
-                required
-                className="w-full px-4 py-3 rounded-lg bg-surface border border-border text-text-primary text-sm focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-colors"
-              >
-                <option value="">Select a service</option>
-                <option>Web App Development</option>
-                <option>UI/UX Design</option>
-                <option>API & Backend</option>
-                <option>Full-Stack Project</option>
-                <option>Mobile-First Solutions</option>
-                <option>Security & Performance Audit</option>
-              </select>
-            </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <Input
+                      label="Name"
+                      placeholder="Your name"
+                      required
+                      value={formData.name}
+                      onChange={(e) => handleChange("name", e.target.value)}
+                      error={errors.name}
+                      id="contact-name"
+                    />
+                    <Input
+                      label="Email"
+                      type="email"
+                      placeholder="your@email.com"
+                      required
+                      value={formData.email}
+                      onChange={(e) => handleChange("email", e.target.value)}
+                      error={errors.email}
+                      id="contact-email"
+                    />
+                  </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {/* Budget */}
-              <div>
-                <label
-                  htmlFor="contact-budget"
-                  className="block text-sm text-text-muted mb-2"
-                >
-                  Budget Range
-                </label>
-                <select
-                  id="contact-budget"
-                  className="w-full px-4 py-3 rounded-lg bg-surface border border-border text-text-primary text-sm focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-colors"
-                >
-                  <option value="">Select budget</option>
-                  {budgetRanges.map((range) => (
-                    <option key={range}>{range}</option>
-                  ))}
-                </select>
-              </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <Select
+                      label="Service Type"
+                      placeholder="Select a service"
+                      options={serviceOptions}
+                      value={formData.type}
+                      onChange={(e) => handleChange("type", e.target.value)}
+                      id="contact-type"
+                    />
+                    <Select
+                      label="Budget Range"
+                      placeholder="Select budget"
+                      options={budgetOptions}
+                      value={formData.budget}
+                      onChange={(e) => handleChange("budget", e.target.value)}
+                      id="contact-budget"
+                    />
+                  </div>
 
-              {/* Timeline */}
-              <div>
-                <label
-                  htmlFor="contact-timeline"
-                  className="block text-sm text-text-muted mb-2"
-                >
-                  Timeline
-                </label>
-                <select
-                  id="contact-timeline"
-                  className="w-full px-4 py-3 rounded-lg bg-surface border border-border text-text-primary text-sm focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-colors"
-                >
-                  <option value="">Select timeline</option>
-                  {timelines.map((t) => (
-                    <option key={t}>{t}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
+                  <Textarea
+                    label="Project Details"
+                    placeholder="Tell us about your project, timeline, and goals..."
+                    required
+                    rows={5}
+                    value={formData.message}
+                    onChange={(e) => handleChange("message", e.target.value)}
+                    error={errors.message}
+                    showCount
+                    maxLength={2000}
+                    id="contact-message"
+                  />
 
-            {/* Team member select */}
-            <div>
-              <label
-                htmlFor="contact-member"
-                className="block text-sm text-text-muted mb-2"
-              >
-                Who do you want to work with?
-              </label>
-              <select
-                id="contact-member"
-                className="w-full px-4 py-3 rounded-lg bg-surface border border-border text-text-primary text-sm focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-colors"
-              >
-                <option value="">Whole team / Not sure</option>
-                {team.map((m) => (
-                  <option key={m.slug} value={m.slug}>
-                    {m.name} — {m.role}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Message */}
-            <div>
-              <label
-                htmlFor="contact-message"
-                className="block text-sm text-text-muted mb-2"
-              >
-                Tell us about your project *
-              </label>
-              <textarea
-                id="contact-message"
-                rows={5}
-                required
-                placeholder="Describe your project, goals, and any specific requirements..."
-                className="w-full px-4 py-3 rounded-lg bg-surface border border-border text-text-primary text-sm placeholder:text-text-muted/50 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-colors resize-none"
-              />
-            </div>
-
-            <Button type="submit" size="lg" className="w-full sm:w-auto">
-              {submitted ? "Message Sent! ✓" : "Send Message"}
-              {!submitted && <Send size={14} />}
-            </Button>
-          </motion.form>
+                  <Button type="submit" size="lg" fullWidth>
+                    Send Message
+                    <Send size={14} />
+                  </Button>
+                </motion.form>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

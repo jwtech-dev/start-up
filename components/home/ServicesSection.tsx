@@ -1,53 +1,136 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import SectionTitle from "@/components/ui/SectionTitle";
 import Button from "@/components/ui/Button";
 import { services } from "@/data/services";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
+
+const rarityColors: Record<string, { border: string; glow: string; label: string }> = {
+  Common: {
+    border: "border-gray-500",
+    glow: "shadow-gray-500/20",
+    label: "text-gray-400",
+  },
+  Rare: {
+    border: "border-blue-400",
+    glow: "shadow-blue-400/30",
+    label: "text-blue-400",
+  },
+  Epic: {
+    border: "border-violet-400",
+    glow: "shadow-violet-400/30",
+    label: "text-violet-400",
+  },
+  Legendary: {
+    border: "border-amber-400",
+    glow: "shadow-amber-400/40",
+    label: "text-amber-400",
+  },
+};
 
 export default function ServicesSection() {
   return (
     <section
-      className="py-24 sm:py-32 bg-surface/30"
+      className="py-20 sm:py-28 lg:py-32 bg-surface/30"
       id="services"
       aria-label="Services"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle
+          badge="Services"
           title="What We Build"
           subtitle="From concept to deployment — we handle design, frontend, and backend as one team."
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, i) => (
-            <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="card-glow group relative p-8 rounded-2xl border border-border bg-bg overflow-hidden"
-            >
-              {/* Hover glow accent */}
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-violet/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {services.map((service, i) => {
+            const rarity = rarityColors[service.rarity];
+            return (
+              <motion.div
+                key={service.title}
+                initial={{ opacity: 0, y: 40, rotateY: -5 }}
+                whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ delay: i * 0.12, duration: 0.6 }}
+                whileHover={{
+                  y: -8,
+                  scale: 1.02,
+                  transition: { type: "spring" as const, stiffness: 300, damping: 20 },
+                }}
+                className="group perspective-1000"
+              >
+                <div
+                  className={`relative rounded-2xl ${rarity.border} border-2 overflow-hidden bg-gradient-to-b from-[#0f0f1a] to-[#080810] shadow-lg ${rarity.glow} group-hover:shadow-xl transition-shadow duration-500`}
+                >
+                  {/* Corner sparkles */}
+                  <div className="absolute top-2 left-2 text-amber-400/60 z-10" aria-hidden="true">
+                    <Sparkles size={14} />
+                  </div>
+                  <div className="absolute top-2 right-2 text-amber-400/60 z-10" aria-hidden="true">
+                    <Sparkles size={14} />
+                  </div>
 
-              <div className="relative z-10">
-                <div className="w-12 h-12 rounded-xl bg-violet/10 flex items-center justify-center mb-5 group-hover:bg-violet/20 transition-colors">
-                  <service.icon size={22} className="text-violet" />
+                  {/* Card Art */}
+                  <div className="relative w-full aspect-[4/3] sm:aspect-square overflow-hidden">
+                    <Image
+                      src={service.cardImage}
+                      alt=""
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
+                      loading="lazy"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                    {/* Gradient overlay for readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#080810] via-[#080810]/40 to-transparent" />
+                  </div>
+
+                  {/* Title Banner */}
+                  <div className="relative -mt-12 z-10 mx-4">
+                    <div className={`${rarity.border} border rounded-xl bg-[#0a0a14]/90 backdrop-blur-sm px-4 py-3 text-center`}>
+                      <h3 className="font-heading font-bold text-base sm:text-lg text-text-primary uppercase tracking-wide">
+                        {service.title}
+                      </h3>
+                    </div>
+                  </div>
+
+                  {/* Card Body */}
+                  <div className="px-5 pt-4 pb-5 space-y-3">
+                    {/* Features as bullet list */}
+                    <ul className="space-y-1.5">
+                      {service.features.map((feature) => (
+                        <li
+                          key={feature}
+                          className="text-xs text-text-muted flex items-start gap-2"
+                        >
+                          <span className="text-accent mt-0.5" aria-hidden="true">•</span>
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Footer: price + rarity */}
+                    <div className={`flex items-center justify-between pt-3 border-t ${rarity.border}/30`}>
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-full bg-gradient-to-br from-accent to-violet flex items-center justify-center">
+                          <service.icon size={12} className="text-bg" />
+                        </div>
+                        <span className="text-xs font-semibold text-accent">
+                          {service.startingPrice}
+                        </span>
+                      </div>
+                      <span
+                        className={`text-[10px] font-bold uppercase tracking-widest ${rarity.label}`}
+                      >
+                        {service.rarity}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="font-heading font-semibold text-lg text-text-primary mb-3">
-                  {service.title}
-                </h3>
-                <p className="text-sm text-text-muted leading-relaxed mb-4">
-                  {service.description}
-                </p>
-                <div className="text-xs text-accent font-semibold">
-                  Starting from {service.startingPrice}
-                </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
 
         <motion.div

@@ -5,19 +5,22 @@ import Image from "next/image";
 import Link from "next/link";
 import SectionTitle from "@/components/ui/SectionTitle";
 import Badge from "@/components/ui/Badge";
+import Button from "@/components/ui/Button";
 import { team } from "@/data/team";
 import { ArrowRight } from "lucide-react";
 
 export default function TeamPreview() {
   return (
-    <section className="py-24 sm:py-32" id="team" aria-label="Meet the team">
+    <section className="py-20 sm:py-28 lg:py-32" id="team" aria-label="Meet the team">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle
+          badge="Our Team"
           title="Meet the Team"
           subtitle="Three specialists. One studio. Infinite possibilities."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Mobile: horizontal scroll, Desktop: grid */}
+        <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory -mx-4 px-4 md:mx-0 md:px-0 md:overflow-visible md:grid md:grid-cols-3 md:gap-8 md:pb-0">
           {team.map((member, i) => (
             <motion.div
               key={member.slug}
@@ -25,13 +28,14 @@ export default function TeamPreview() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ delay: i * 0.15, duration: 0.6 }}
+              className="min-w-[280px] snap-center md:min-w-0"
             >
               <Link
                 href={`/team/${member.slug}`}
-                className="card-glow block p-6 rounded-2xl border border-border bg-surface/50 group"
+                className="card-glow block p-6 rounded-2xl border border-border bg-surface/50 group hover:border-accent/20 h-full"
               >
                 {/* Avatar */}
-                <div className="relative w-20 h-20 rounded-2xl overflow-hidden mb-5 ring-2 ring-border group-hover:ring-accent/30 transition-all">
+                <div className="relative w-20 h-20 rounded-2xl overflow-hidden mb-5 ring-2 ring-border group-hover:ring-accent/30 transition-all duration-300">
                   <Image
                     src={member.avatar}
                     alt={member.name}
@@ -55,10 +59,10 @@ export default function TeamPreview() {
                 {/* Tech badges */}
                 <div className="flex flex-wrap gap-1.5 mb-5">
                   {member.techStack.slice(0, 4).map((tech) => (
-                    <Badge key={tech}>{tech}</Badge>
+                    <Badge key={tech} size="sm">{tech}</Badge>
                   ))}
                   {member.techStack.length > 4 && (
-                    <Badge>+{member.techStack.length - 4}</Badge>
+                    <Badge size="sm">+{member.techStack.length - 4}</Badge>
                   )}
                 </div>
 
@@ -70,6 +74,13 @@ export default function TeamPreview() {
               </Link>
             </motion.div>
           ))}
+        </div>
+
+        <div className="mt-10 text-center md:hidden">
+          <Button href="/team" variant="outline" size="sm">
+            View All Team Members
+            <ArrowRight size={14} />
+          </Button>
         </div>
       </div>
     </section>
