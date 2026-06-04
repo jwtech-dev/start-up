@@ -2,56 +2,39 @@
 
 @theme inline {
   /* ─── Colors ─── */
-  --color-bg: #0A0A0F;
-  --color-surface: #13131A;
-  --color-surface-hover: #1a1a25;
-  --color-surface-active: #222233;
+  --color-bg: #111118;
+  --color-surface: #1A1A24;
+  --color-surface-hover: #232330;
+  --color-surface-active: #2C2C3D;
   --color-accent: #6EE7B7;
   --color-accent-hover: #5fd4a6;
-  --color-accent-muted: rgba(110, 231, 183, 0.12);
+  --color-accent-muted: rgba(110, 231, 183, 0.14);
   --color-violet: #A78BFA;
   --color-violet-hover: #9575f0;
-  --color-violet-muted: rgba(167, 139, 250, 0.12);
+  --color-violet-muted: rgba(167, 139, 250, 0.14);
   --color-text-primary: #F0F0F5;
-  --color-text-secondary: #B8B8CC;
-  --color-text-muted: #6B7280;
-  --color-border: #1F1F2E;
-  --color-border-hover: #2d2d42;
-  --color-border-focus: rgba(110, 231, 183, 0.4);
+  --color-text-secondary: #C0C0D0;
+  --color-text-muted: #8B8FA0;
+  --color-border: #2A2A3C;
+  --color-border-hover: #3A3A50;
+  --color-border-focus: rgba(110, 231, 183, 0.45);
   --color-error: #F87171;
-  --color-error-muted: rgba(248, 113, 113, 0.12);
+  --color-error-muted: rgba(248, 113, 113, 0.14);
   --color-success: #34D399;
-  --color-success-muted: rgba(52, 211, 153, 0.12);
+  --color-success-muted: rgba(52, 211, 153, 0.14);
 
   /* ─── Typography ─── */
   --font-heading: var(--font-syne);
   --font-body: var(--font-dm-sans);
+}
 
-  /* ─── Spacing scale (4px base) ─── */
-  --spacing-xs: 0.25rem;   /* 4px */
-  --spacing-sm: 0.5rem;    /* 8px */
-  --spacing-md: 1rem;      /* 16px */
-  --spacing-lg: 1.5rem;    /* 24px */
-  --spacing-xl: 2rem;      /* 32px */
-  --spacing-2xl: 3rem;     /* 48px */
-  --spacing-3xl: 4rem;     /* 64px */
-  --spacing-4xl: 6rem;     /* 96px */
-  --spacing-5xl: 8rem;     /* 128px */
-
-  /* ─── Border radius scale ─── */
-  --radius-sm: 0.375rem;   /* 6px */
-  --radius-md: 0.5rem;     /* 8px */
-  --radius-lg: 0.75rem;    /* 12px */
-  --radius-xl: 1rem;       /* 16px */
-  --radius-2xl: 1.25rem;   /* 20px */
-  --radius-full: 9999px;
-
-  /* ─── Transitions ─── */
-  --duration-fast: 150ms;
-  --duration-normal: 250ms;
-  --duration-slow: 400ms;
-  --ease-out: cubic-bezier(0.25, 0.4, 0.25, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+/* ─── Design system tokens (outside @theme to avoid Tailwind v4 collisions) ─── */
+:root {
+  --ds-duration-fast: 150ms;
+  --ds-duration-normal: 250ms;
+  --ds-duration-slow: 400ms;
+  --ds-ease-out: cubic-bezier(0.25, 0.4, 0.25, 1);
+  --ds-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* ─── Smooth scroll ─── */
@@ -110,7 +93,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.875rem;
   border-radius: 0 0 var(--radius-lg) 0;
   transform: translateY(-100%);
-  transition: transform var(--duration-fast) var(--ease-out);
+  transition: transform var(--ds-duration-fast) var(--ds-ease-out);
 }
 .skip-link:focus {
   transform: translateY(0);
@@ -192,9 +175,9 @@ html {
 /* ─── Card glow effect on hover ─── */
 .card-glow {
   position: relative;
-  transition: transform var(--duration-normal) var(--ease-out),
-              box-shadow var(--duration-normal) var(--ease-out),
-              border-color var(--duration-normal) var(--ease-out);
+  transition: transform var(--ds-duration-normal) var(--ds-ease-out),
+              box-shadow var(--ds-duration-normal) var(--ds-ease-out),
+              border-color var(--ds-duration-normal) var(--ds-ease-out);
 }
 
 .card-glow:hover {
@@ -230,7 +213,7 @@ html {
 .nav-blur {
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  background-color: rgba(10, 10, 15, 0.8);
+  background-color: rgba(17, 17, 24, 0.8);
 }
 
 /* ─── Skeleton loading animation ─── */
@@ -262,8 +245,8 @@ html {
   font-size: 0.875rem;
   font-family: inherit;
   line-height: 1.5;
-  transition: border-color var(--duration-fast) var(--ease-out),
-              box-shadow var(--duration-fast) var(--ease-out);
+  transition: border-color var(--ds-duration-fast) var(--ds-ease-out),
+              box-shadow var(--ds-duration-fast) var(--ds-ease-out);
 }
 
 .form-input::placeholder {

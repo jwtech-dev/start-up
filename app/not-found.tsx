@@ -20,7 +20,7 @@ export default function NotFound() {
       <div className="glow-mint -top-40 -left-20 opacity-20" />
       <div className="glow-violet top-1/2 -right-20 opacity-15" />
 
-      <div className="max-w-lg mx-auto px-4 sm:px-6 text-center relative z-10">
+      <div className="w-full max-w-lg mx-auto px-4 sm:px-6 text-center relative z-10">
         {/* Animated 404 */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}

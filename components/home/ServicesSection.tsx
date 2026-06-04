@@ -62,7 +62,7 @@ export default function ServicesSection() {
                 className="group perspective-1000"
               >
                 <div
-                  className={`relative rounded-2xl ${rarity.border} border-2 overflow-hidden bg-gradient-to-b from-[#0f0f1a] to-[#080810] shadow-lg ${rarity.glow} group-hover:shadow-xl transition-shadow duration-500`}
+                  className={`relative rounded-2xl ${rarity.border} border-2 overflow-hidden bg-gradient-to-b from-[#181825] to-[#111118] shadow-lg ${rarity.glow} group-hover:shadow-xl transition-shadow duration-500`}
                 >
                   {/* Corner sparkles */}
                   <div className="absolute top-2 left-2 text-amber-400/60 z-10" aria-hidden="true">
@@ -83,12 +83,12 @@ export default function ServicesSection() {
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                     {/* Gradient overlay for readability */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#080810] via-[#080810]/40 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#111118] via-[#111118]/40 to-transparent" />
                   </div>
 
                   {/* Title Banner */}
                   <div className="relative -mt-12 z-10 mx-4">
-                    <div className={`${rarity.border} border rounded-xl bg-[#0a0a14]/90 backdrop-blur-sm px-4 py-3 text-center`}>
+                    <div className={`${rarity.border} border rounded-xl bg-[#141420]/90 backdrop-blur-sm px-4 py-3 text-center`}>
                       <h3 className="font-heading font-bold text-base sm:text-lg text-text-primary uppercase tracking-wide">
                         {service.title}
                       </h3>
