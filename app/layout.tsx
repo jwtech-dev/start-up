@@ -28,8 +28,8 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "J-Warriors — Digital Studio",
-    template: "%s | J-Warriors",
+    default: "JW-Tech — Digital Studio",
+    template: "%s | JW-Tech",
   },
   description:
     "A three-person development studio building premium digital experiences. Web apps, UI/UX design, and backend solutions — on commission.",

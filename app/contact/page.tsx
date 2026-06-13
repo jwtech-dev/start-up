@@ -22,8 +22,8 @@ const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "hello@j-warriors.dev",
-    href: "mailto:hello@j-warriors.dev",
+    value: "hello@jw-tech.dev",
+    href: "mailto:hello@jw-tech.dev",
   },
   {
     icon: MapPin,
@@ -48,9 +48,11 @@ const socialLinks = [
 const serviceOptions = [
   { value: "webapp", label: "Web App Development" },
   { value: "uiux", label: "UI/UX Design" },
+  { value: "frontend", label: "Frontend Development" },
   { value: "backend", label: "API & Backend" },
   { value: "fullstack", label: "Full-Stack Project" },
   { value: "consultation", label: "Technical Consultation" },
+  { value: "other", label: "Other" },
 ];
 
 const budgetOptions = [
@@ -73,6 +75,7 @@ export default function ContactPage() {
     name: "",
     email: "",
     type: "",
+    customType: "",
     budget: "",
     message: "",
   });
@@ -94,7 +97,7 @@ export default function ContactPage() {
     e.preventDefault();
     if (!validate()) return;
     setSubmitted(true);
-    setFormData({ name: "", email: "", type: "", budget: "", message: "" });
+    setFormData({ name: "", email: "", type: "", customType: "", budget: "", message: "" });
     setErrors({});
     setTimeout(() => setSubmitted(false), 5000);
   };
@@ -112,7 +115,7 @@ export default function ContactPage() {
         {/* Hero */}
         <div className="relative mb-4">
           <div className="glow-mint -top-40 -left-20 opacity-30" />
-          <div className="glow-violet -top-20 right-0 opacity-20" />
+          <div className="glow-sapphire -top-20 right-0 opacity-20" />
           <div className="relative z-10">
             <SectionTitle
               badge="Contact Us"
@@ -258,14 +261,34 @@ export default function ContactPage() {
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <Select
-                      label="Service Type"
-                      placeholder="Select a service"
-                      options={serviceOptions}
-                      value={formData.type}
-                      onChange={(e) => handleChange("type", e.target.value)}
-                      id="contact-type"
-                    />
+                    <div className="space-y-3">
+                      <Select
+                        label="Service Type"
+                        placeholder="Select a service"
+                        options={serviceOptions}
+                        value={formData.type}
+                        onChange={(e) => handleChange("type", e.target.value)}
+                        id="contact-type"
+                      />
+                      <AnimatePresence>
+                        {formData.type === "other" && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <Input
+                              label="Specify Service"
+                              placeholder="Describe the service you need..."
+                              value={formData.customType}
+                              onChange={(e) => handleChange("customType", e.target.value)}
+                              id="contact-custom-type"
+                            />
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
                     <Select
                       label="Budget Range"
                       placeholder="Select budget"

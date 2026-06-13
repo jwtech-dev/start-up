@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 interface BadgeProps {
   children: ReactNode;
-  variant?: "default" | "accent" | "violet" | "error" | "success";
+  variant?: "default" | "accent" | "sapphire" | "error" | "success";
   size?: "sm" | "md";
   className?: string;
 }
@@ -13,8 +13,8 @@ const badgeVariants = {
     "bg-surface text-text-muted border border-border",
   accent:
     "bg-accent/10 text-accent border border-accent/20",
-  violet:
-    "bg-violet/10 text-violet border border-violet/20",
+  sapphire:
+    "bg-sapphire/10 text-sapphire border border-sapphire/20",
   error:
     "bg-error-muted text-error border border-error/20",
   success:

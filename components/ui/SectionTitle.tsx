@@ -49,7 +49,7 @@ export default function SectionTitle({
           align === "center" ? "flex justify-center" : ""
         )}
       >
-        <div className="w-12 h-1 rounded-full bg-gradient-to-r from-accent to-violet" />
+        <div className="w-12 h-1 rounded-full bg-gradient-to-r from-accent to-sapphire" />
       </div>
 
       <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading tracking-tight text-text-primary">

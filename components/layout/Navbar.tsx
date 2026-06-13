@@ -63,21 +63,19 @@ export default function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 100, damping: 20 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "nav-blur border-b border-border" : "bg-transparent"
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 bg-bg border-b border-border"
     >
       <nav
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
         aria-label="Main navigation"
       >
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 group" aria-label="J-Warriors Home">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent to-violet flex items-center justify-center font-heading font-bold text-bg text-sm">
+        <Link href="/" className="flex items-center gap-3 group" aria-label="JW-Tech Home">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent to-sapphire flex items-center justify-center font-heading font-bold text-bg text-sm">
             JW
           </div>
           <span className="font-heading font-bold text-lg text-text-primary group-hover:text-accent transition-colors">
-            J-Warriors
+            JW-Tech
           </span>
         </Link>
 
@@ -92,11 +90,10 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative px-4 py-2 text-sm font-medium transition-colors rounded-lg ${
-                  isActive
-                    ? "text-accent"
-                    : "text-text-muted hover:text-text-primary"
-                }`}
+                className={`relative px-4 py-2 text-sm font-medium transition-colors rounded-lg ${isActive
+                  ? "text-accent"
+                  : "text-text-muted hover:text-text-primary"
+                  }`}
                 aria-current={isActive ? "page" : undefined}
               >
                 {link.label}
@@ -164,7 +161,7 @@ export default function Navbar() {
             <div className="relative z-10 flex flex-col h-full px-6 pt-8 pb-12 safe-bottom">
               {/* Decorative glow */}
               <div className="glow-mint -top-40 -right-20 opacity-30" />
-              <div className="glow-violet top-1/2 -left-32 opacity-20" />
+              <div className="glow-sapphire top-1/2 -left-32 opacity-20" />
 
               {/* Nav links */}
               <div className="flex-1 flex flex-col justify-center gap-2">
@@ -183,11 +180,10 @@ export default function Navbar() {
                     >
                       <Link
                         href={link.href}
-                        className={`block px-4 py-4 rounded-xl text-2xl font-heading font-semibold transition-colors ${
-                          isActive
-                            ? "text-accent bg-accent/5"
-                            : "text-text-primary hover:text-accent hover:bg-surface/50"
-                        }`}
+                        className={`block px-4 py-4 rounded-xl text-2xl font-heading font-semibold transition-colors ${isActive
+                          ? "text-accent bg-accent/5"
+                          : "text-text-primary hover:text-accent hover:bg-surface/50"
+                          }`}
                         aria-current={isActive ? "page" : undefined}
                       >
                         {link.label}

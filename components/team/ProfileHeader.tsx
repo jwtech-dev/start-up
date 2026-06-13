@@ -25,7 +25,7 @@ export default function ProfileHeader({ member }: ProfileHeaderProps) {
       {/* Background decoration */}
       <div className="absolute inset-0 noise-overlay">
         <div className="glow-mint top-0 left-1/4" />
-        <div className="glow-violet -top-20 right-1/4" />
+        <div className="glow-sapphire -top-20 right-1/4" />
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
@@ -74,7 +74,7 @@ export default function ProfileHeader({ member }: ProfileHeaderProps) {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="text-lg text-violet font-medium mt-2"
+              className="text-lg text-sapphire font-medium mt-2"
             >
               {member.role}
             </motion.p>

@@ -17,14 +17,14 @@ const values = [
     title: "Design Obsessed",
     description:
       "Every pixel matters. We craft interfaces that feel premium and intuitive.",
-    gradient: "from-violet/20 to-violet/5",
+    gradient: "from-sapphire/20 to-sapphire/5",
   },
   {
     icon: Zap,
     title: "Ship Fast",
     description:
       "Small team, zero overhead. We move quickly without cutting corners.",
-    gradient: "from-accent/15 to-violet/5",
+    gradient: "from-accent/15 to-sapphire/5",
   },
 ];
 

@@ -17,7 +17,7 @@ export default function ServicesPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 sm:mb-24 relative overflow-hidden">
         {/* Decorative glows */}
         <div className="glow-mint -top-40 -left-40 opacity-40" />
-        <div className="glow-violet -top-20 right-0 opacity-30" />
+        <div className="glow-sapphire -top-20 right-0 opacity-30" />
 
         <div className="relative z-10">
           <SectionTitle
@@ -43,8 +43,8 @@ export default function ServicesPage() {
               transition={{ delay: i * 0.08, duration: 0.5 }}
               className="card-glow group p-6 sm:p-8 rounded-2xl border border-border bg-surface/50 flex flex-col hover:border-accent/20"
             >
-              <div className="w-12 h-12 rounded-xl bg-violet/10 flex items-center justify-center mb-5 group-hover:bg-violet/20 group-hover:scale-110 transition-all duration-300">
-                <service.icon size={22} className="text-violet" />
+              <div className="w-12 h-12 rounded-xl bg-sapphire/10 flex items-center justify-center mb-5 group-hover:bg-sapphire/20 group-hover:scale-110 transition-all duration-300">
+                <service.icon size={22} className="text-sapphire" />
               </div>
 
               <h3 className="font-heading font-semibold text-lg text-text-primary mb-2">
@@ -70,8 +70,7 @@ export default function ServicesPage() {
                 ))}
               </ul>
 
-              <div className="pt-4 border-t border-border flex items-center justify-between">
-                <Badge variant="accent">From {service.startingPrice}</Badge>
+              <div className="pt-4 border-t border-border flex items-center justify-end">
                 <Button href="/contact" size="sm" variant="ghost">
                   Get Quote
                   <ArrowRight size={12} />
@@ -96,7 +95,7 @@ export default function ServicesPage() {
 
           <div className="relative">
             {/* Vertical line */}
-            <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-accent/30 via-violet/20 to-transparent hidden sm:block" aria-hidden="true" />
+            <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-accent/30 via-sapphire/20 to-transparent hidden sm:block" aria-hidden="true" />
 
             <div className="space-y-6 sm:space-y-8">
               {processSteps.map((step, i) => (
@@ -189,7 +188,7 @@ export default function ServicesPage() {
       <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center py-12 sm:py-16 rounded-2xl border border-border bg-gradient-to-br from-surface/80 to-surface/30 relative overflow-hidden">
           <div className="glow-mint -top-20 left-1/4 opacity-20" />
-          <div className="glow-violet -bottom-20 right-1/4 opacity-20" />
+          <div className="glow-sapphire -bottom-20 right-1/4 opacity-20" />
           <div className="relative z-10">
             <h2 className="font-heading font-bold text-2xl sm:text-3xl text-text-primary mb-4">
               Ready to Start?

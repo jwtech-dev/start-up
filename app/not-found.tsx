@@ -18,7 +18,7 @@ export default function NotFound() {
     <section className="min-h-[70vh] flex items-center justify-center relative overflow-hidden" aria-label="Page not found">
       {/* Decorative elements */}
       <div className="glow-mint -top-40 -left-20 opacity-20" />
-      <div className="glow-violet top-1/2 -right-20 opacity-15" />
+      <div className="glow-sapphire top-1/2 -right-20 opacity-15" />
 
       <div className="w-full max-w-lg mx-auto px-4 sm:px-6 text-center relative z-10">
         {/* Animated 404 */}
@@ -35,7 +35,7 @@ export default function NotFound() {
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="w-24 h-1 rounded-full bg-gradient-to-r from-accent to-violet mx-auto"
+            className="w-24 h-1 rounded-full bg-gradient-to-r from-accent to-sapphire mx-auto"
           />
         </motion.div>
 

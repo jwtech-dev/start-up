@@ -7,7 +7,7 @@ import { BookOpen } from "lucide-react";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Programming insights, tutorials, and best practices from the J-Warriors team. New posts daily.",
+    "Programming insights, tutorials, and best practices from the JW-Tech team. New posts daily.",
 };
 
 export default function BlogPage() {
@@ -21,7 +21,7 @@ export default function BlogPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero with decorative background */}
         <div className="relative mb-4">
-          <div className="glow-violet -top-40 -left-20 opacity-30" />
+          <div className="glow-sapphire -top-40 -left-20 opacity-30" />
           <div className="glow-mint -top-20 right-0 opacity-20" />
           <div className="relative z-10">
             <SectionTitle

@@ -2,43 +2,14 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import SectionTitle from "@/components/ui/SectionTitle";
 import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
+import { defaultTestimonials } from "@/data/testimonials";
+import type { Testimonial } from "@/data/testimonials";
 
-const testimonials = [
-  {
-    name: "Rachel Chen",
-    company: "TechFlow Inc.",
-    role: "CTO",
-    quote:
-      "J-Warriors delivered our SaaS dashboard ahead of schedule. The attention to detail and performance optimization was beyond our expectations.",
-    rating: 5,
-    initials: "RC",
-    color: "from-accent to-emerald-400",
-  },
-  {
-    name: "Marcus Johnson",
-    company: "StartUp Labs",
-    role: "Founder",
-    quote:
-      "Working with this team felt like having a full in-house engineering team. Communication was seamless and the quality was outstanding.",
-    rating: 5,
-    initials: "MJ",
-    color: "from-violet to-blue-400",
-  },
-  {
-    name: "Sarah Kim",
-    company: "DesignCo",
-    role: "Product Manager",
-    quote:
-      "The design-to-code pipeline was flawless. They took our Figma files and turned them into a pixel-perfect, animated web experience.",
-    rating: 5,
-    initials: "SK",
-    color: "from-amber-400 to-orange-400",
-  },
-];
 
-function TestimonialCard({ testimonial }: { testimonial: typeof testimonials[0] }) {
+function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
     <div className="p-6 sm:p-8 rounded-2xl border border-border bg-bg relative h-full flex flex-col">
       <Quote
@@ -67,10 +38,22 @@ function TestimonialCard({ testimonial }: { testimonial: typeof testimonials[0] 
 
       {/* Author */}
       <div className="flex items-center gap-3">
-        {/* Avatar placeholder */}
-        <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${testimonial.color} flex items-center justify-center text-bg text-xs font-bold`}>
-          {testimonial.initials}
-        </div>
+        {/* Avatar */}
+        {testimonial.image ? (
+          <div className="w-10 h-10 rounded-full overflow-hidden shrink-0">
+            <Image
+              src={testimonial.image}
+              alt={testimonial.name}
+              width={40}
+              height={40}
+              className="object-cover w-full h-full"
+            />
+          </div>
+        ) : (
+          <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${testimonial.color} flex items-center justify-center text-bg text-xs font-bold shrink-0`}>
+            {testimonial.initials}
+          </div>
+        )}
         <div>
           <div className="font-heading font-semibold text-sm text-text-primary">
             {testimonial.name}
@@ -85,9 +68,24 @@ function TestimonialCard({ testimonial }: { testimonial: typeof testimonials[0] 
 }
 
 export default function Testimonials() {
+  const [allTestimonials, setAllTestimonials] = useState<Testimonial[]>(defaultTestimonials);
   const [current, setCurrent] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Fetch user-added testimonials and merge with defaults
+  useEffect(() => {
+    fetch("/api/testimonials")
+      .then((res) => res.json())
+      .then((userTestimonials: Testimonial[]) => {
+        if (userTestimonials.length > 0) {
+          setAllTestimonials([...defaultTestimonials, ...userTestimonials]);
+        }
+      })
+      .catch(() => {
+        // Silently fail — just show defaults
+      });
+  }, []);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -100,17 +98,20 @@ export default function Testimonials() {
   useEffect(() => {
     if (!isMobile) return;
     intervalRef.current = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % testimonials.length);
+      setCurrent((prev) => (prev + 1) % allTestimonials.length);
     }, 5000);
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [isMobile]);
+  }, [isMobile, allTestimonials.length]);
 
   const goTo = (index: number) => {
     setCurrent(index);
     if (intervalRef.current) clearInterval(intervalRef.current);
   };
+
+  // Hide section if no testimonials
+  if (allTestimonials.length === 0) return null;
 
   return (
     <section
@@ -126,8 +127,8 @@ export default function Testimonials() {
         />
 
         {/* Desktop: grid */}
-        <div className="hidden md:grid md:grid-cols-3 gap-6">
-          {testimonials.map((testimonial, i) => (
+        <div className={`hidden md:grid gap-6 ${allTestimonials.length <= 3 ? "md:grid-cols-3" : "md:grid-cols-2 lg:grid-cols-3"}`}>
+          {allTestimonials.map((testimonial, i) => (
             <motion.div
               key={testimonial.name}
               initial={{ opacity: 0, y: 30 }}
@@ -152,7 +153,7 @@ export default function Testimonials() {
                 exit={{ opacity: 0, x: -50 }}
                 transition={{ duration: 0.3 }}
               >
-                <TestimonialCard testimonial={testimonials[current]} />
+                <TestimonialCard testimonial={allTestimonials[current]} />
               </motion.div>
             </AnimatePresence>
           </div>
@@ -160,7 +161,7 @@ export default function Testimonials() {
           {/* Controls */}
           <div className="flex items-center justify-center gap-4 mt-6">
             <button
-              onClick={() => goTo((current - 1 + testimonials.length) % testimonials.length)}
+              onClick={() => goTo((current - 1 + allTestimonials.length) % allTestimonials.length)}
               className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-text-muted hover:text-accent hover:border-accent/30 transition-colors"
               aria-label="Previous testimonial"
             >
@@ -169,7 +170,7 @@ export default function Testimonials() {
 
             {/* Dots */}
             <div className="flex gap-2">
-              {testimonials.map((_, i) => (
+              {allTestimonials.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => goTo(i)}
@@ -185,7 +186,7 @@ export default function Testimonials() {
             </div>
 
             <button
-              onClick={() => goTo((current + 1) % testimonials.length)}
+              onClick={() => goTo((current + 1) % allTestimonials.length)}
               className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-text-muted hover:text-accent hover:border-accent/30 transition-colors"
               aria-label="Next testimonial"
             >

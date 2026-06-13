@@ -19,9 +19,9 @@ const rarityColors: Record<string, { border: string; glow: string; label: string
     label: "text-blue-400",
   },
   Epic: {
-    border: "border-violet-400",
-    glow: "shadow-violet-400/30",
-    label: "text-violet-400",
+    border: "border-sapphire",
+    glow: "shadow-sapphire/30",
+    label: "text-sapphire",
   },
   Legendary: {
     border: "border-amber-400",
@@ -62,7 +62,7 @@ export default function ServicesSection() {
                 className="group perspective-1000"
               >
                 <div
-                  className={`relative rounded-2xl ${rarity.border} border-2 overflow-hidden bg-gradient-to-b from-[#181825] to-[#111118] shadow-lg ${rarity.glow} group-hover:shadow-xl transition-shadow duration-500`}
+                  className={`relative rounded-2xl ${rarity.border} border-2 overflow-hidden bg-gradient-to-b from-[#152850] to-[#0D1A3A] shadow-lg ${rarity.glow} group-hover:shadow-xl transition-shadow duration-500`}
                 >
                   {/* Corner sparkles */}
                   <div className="absolute top-2 left-2 text-amber-400/60 z-10" aria-hidden="true">
@@ -83,12 +83,12 @@ export default function ServicesSection() {
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                     {/* Gradient overlay for readability */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#111118] via-[#111118]/40 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0D1A3A] via-[#0D1A3A]/40 to-transparent" />
                   </div>
 
                   {/* Title Banner */}
                   <div className="relative -mt-12 z-10 mx-4">
-                    <div className={`${rarity.border} border rounded-xl bg-[#141420]/90 backdrop-blur-sm px-4 py-3 text-center`}>
+                    <div className={`${rarity.border} border rounded-xl bg-[#112260]/90 backdrop-blur-sm px-4 py-3 text-center`}>
                       <h3 className="font-heading font-bold text-base sm:text-lg text-text-primary uppercase tracking-wide">
                         {service.title}
                       </h3>
@@ -110,15 +110,10 @@ export default function ServicesSection() {
                       ))}
                     </ul>
 
-                    {/* Footer: price + rarity */}
+                    {/* Footer: rarity */}
                     <div className={`flex items-center justify-between pt-3 border-t ${rarity.border}/30`}>
-                      <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 rounded-full bg-gradient-to-br from-accent to-violet flex items-center justify-center">
-                          <service.icon size={12} className="text-bg" />
-                        </div>
-                        <span className="text-xs font-semibold text-accent">
-                          {service.startingPrice}
-                        </span>
+                      <div className="w-6 h-6 rounded-full bg-gradient-to-br from-accent to-sapphire flex items-center justify-center">
+                        <service.icon size={12} className="text-bg" />
                       </div>
                       <span
                         className={`text-[10px] font-bold uppercase tracking-widest ${rarity.label}`}

@@ -146,7 +146,7 @@ export async function POST(request: Request) {
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
 
-    const prompt = `You are a technical blog writer for a web development agency called J-Warriors. Write a blog post about: "${topic}".
+    const prompt = `You are a technical blog writer for a web development agency called JW-Tech. Write a blog post about: "${topic}".
 
 Requirements:
 - Title: Create an engaging, SEO-friendly title (not just the topic name)

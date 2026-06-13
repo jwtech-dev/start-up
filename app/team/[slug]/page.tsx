@@ -166,7 +166,7 @@ export default async function ProfilePage({ params }: PageProps) {
                   <h3 className="font-heading font-semibold text-sm text-text-primary group-hover:text-accent transition-colors">
                     {other.name}
                   </h3>
-                  <p className="text-xs text-violet">{other.role}</p>
+                  <p className="text-xs text-sapphire">{other.role}</p>
                 </div>
                 <ArrowRight size={14} className="text-text-muted group-hover:text-accent transition-colors shrink-0" />
               </Link>

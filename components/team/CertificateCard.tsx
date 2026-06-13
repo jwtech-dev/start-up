@@ -22,8 +22,8 @@ export default function CertificateCard({
       className="card-glow group flex items-start gap-4 p-5 rounded-xl border border-border bg-surface/50"
     >
       {/* Icon */}
-      <div className="w-10 h-10 rounded-lg bg-violet/10 flex items-center justify-center shrink-0 group-hover:bg-violet/20 transition-colors">
-        <Award size={18} className="text-violet" />
+      <div className="w-10 h-10 rounded-lg bg-sapphire/10 flex items-center justify-center shrink-0 group-hover:bg-sapphire/20 transition-colors">
+        <Award size={18} className="text-sapphire" />
       </div>
 
       {/* Info */}

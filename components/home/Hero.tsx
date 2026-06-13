@@ -51,7 +51,7 @@ export default function Hero() {
         <motion.div
           animate={{ x: [0, -30, 20, 0], y: [0, 20, -30, 0] }}
           transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
-          className="glow-violet top-1/3 -right-20"
+          className="glow-sapphire top-1/3 -right-20"
         />
         <motion.div
           animate={{ x: [0, 20, -20, 0], y: [0, -10, 20, 0] }}

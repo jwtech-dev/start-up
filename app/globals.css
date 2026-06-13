@@ -1,27 +1,27 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* ─── Colors ─── */
-  --color-bg: #111118;
-  --color-surface: #1A1A24;
-  --color-surface-hover: #232330;
-  --color-surface-active: #2C2C3D;
-  --color-accent: #6EE7B7;
-  --color-accent-hover: #5fd4a6;
-  --color-accent-muted: rgba(110, 231, 183, 0.14);
-  --color-violet: #A78BFA;
-  --color-violet-hover: #9575f0;
-  --color-violet-muted: rgba(167, 139, 250, 0.14);
-  --color-text-primary: #F0F0F5;
-  --color-text-secondary: #C0C0D0;
-  --color-text-muted: #8B8FA0;
-  --color-border: #2A2A3C;
-  --color-border-hover: #3A3A50;
-  --color-border-focus: rgba(110, 231, 183, 0.45);
-  --color-error: #F87171;
-  --color-error-muted: rgba(248, 113, 113, 0.14);
-  --color-success: #34D399;
-  --color-success-muted: rgba(52, 211, 153, 0.14);
+  /* ─── Palette: Sapphire · Royal Blue · Quicksand · Swan Wing · Shellstone ─── */
+  --color-bg: #0D1A3A;           /* deeper shade of Royal Blue */
+  --color-surface: #112260;       /* Royal Blue */
+  --color-surface-hover: #1A3070; /* lighter Royal Blue */
+  --color-surface-active: #304870;/* Sapphire */
+  --color-accent: #E0C88F;        /* Quicksand (gold) */
+  --color-accent-hover: #D4B876;  /* darker Quicksand */
+  --color-accent-muted: rgba(224, 200, 143, 0.14);
+  --color-sapphire: #304870;      /* Sapphire */
+  --color-sapphire-hover: #3D5A88;
+  --color-sapphire-muted: rgba(48, 80, 112, 0.25);
+  --color-text-primary: #F5F0E9;  /* Swan Wing */
+  --color-text-secondary: #D6CFC4;/* muted Swan Wing */
+  --color-text-muted: #9A9184;    /* warm muted */
+  --color-border: #1E3460;        /* subtle border */
+  --color-border-hover: #2D4878;  /* hover border */
+  --color-border-focus: rgba(224, 200, 143, 0.45); /* gold focus ring */
+  --color-error: #D90B02;         /* Shellstone */
+  --color-error-muted: rgba(217, 11, 2, 0.14);
+  --color-success: #4CAF50;
+  --color-success-muted: rgba(76, 175, 80, 0.14);
 
   /* ─── Typography ─── */
   --font-heading: var(--font-syne);
@@ -63,8 +63,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ─── Selection ─── */
 ::selection {
-  background: rgba(110, 231, 183, 0.25);
-  color: var(--color-text-primary);
+  background: rgba(224, 200, 143, 0.3);
+  color: var(--color-bg);
 }
 
 /* ─── Visually hidden (a11y) ─── */
@@ -157,17 +157,17 @@ html {
   width: 500px;
   height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(110, 231, 183, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(224, 200, 143, 0.15) 0%, transparent 70%);
   filter: blur(80px);
   pointer-events: none;
 }
 
-.glow-violet {
+.glow-sapphire {
   position: absolute;
   width: 400px;
   height: 400px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(167, 139, 250, 0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(48, 80, 112, 0.20) 0%, transparent 70%);
   filter: blur(80px);
   pointer-events: none;
 }
@@ -182,7 +182,7 @@ html {
 
 .card-glow:hover {
   transform: translateY(-4px);
-  box-shadow: 0 0 30px rgba(110, 231, 183, 0.08), 0 0 60px rgba(167, 139, 250, 0.05);
+  box-shadow: 0 0 30px rgba(224, 200, 143, 0.10), 0 0 60px rgba(48, 80, 112, 0.08);
 }
 
 /* ─── Pulsing dot for "Available" badge ─── */
@@ -203,7 +203,7 @@ html {
 
 /* ─── Gradient text utility ─── */
 .gradient-text {
-  background: linear-gradient(135deg, var(--color-accent), var(--color-violet));
+  background: linear-gradient(135deg, var(--color-accent), var(--color-sapphire));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -213,7 +213,7 @@ html {
 .nav-blur {
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  background-color: rgba(17, 17, 24, 0.8);
+  background-color: rgba(13, 26, 58, 0.85);
 }
 
 /* ─── Skeleton loading animation ─── */
@@ -256,7 +256,7 @@ html {
 .form-input:focus {
   outline: none;
   border-color: var(--color-border-focus);
-  box-shadow: 0 0 0 3px rgba(110, 231, 183, 0.1);
+  box-shadow: 0 0 0 3px rgba(224, 200, 143, 0.12);
 }
 
 .form-input:user-invalid {

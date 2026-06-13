@@ -155,8 +155,8 @@ Colors, spacing, typography, and shadows defined as variables:
 
 \`\`\`css
 :root {
-  --color-primary: #6EE7B7;
-  --color-secondary: #A78BFA;
+  --color-primary: #E0C88F;
+  --color-secondary: #304870;
   --spacing-sm: 8px;
   --spacing-md: 16px;
   --radius-lg: 12px;

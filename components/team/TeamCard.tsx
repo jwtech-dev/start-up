@@ -41,7 +41,7 @@ export default function TeamCard({ member, index }: TeamCardProps) {
             <h3 className="font-heading font-bold text-xl text-text-primary group-hover:text-accent transition-colors">
               {member.name}
             </h3>
-            <p className="text-sm text-violet font-medium mb-3">
+            <p className="text-sm text-sapphire font-medium mb-3">
               {member.role}
             </p>
 

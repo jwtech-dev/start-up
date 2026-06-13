@@ -49,7 +49,7 @@ export default function TeamPreview() {
                 <h3 className="font-heading font-semibold text-lg text-text-primary group-hover:text-accent transition-colors">
                   {member.name}
                 </h3>
-                <p className="text-sm text-violet font-medium mb-3">
+                <p className="text-sm text-sapphire font-medium mb-3">
                   {member.role}
                 </p>
                 <p className="text-sm text-text-muted leading-relaxed mb-4 line-clamp-2">

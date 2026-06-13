@@ -18,8 +18,10 @@ const socials = [
 const serviceOptions = [
   { value: "webapp", label: "Web App Development" },
   { value: "uiux", label: "UI/UX Design" },
+  { value: "frontend", label: "Frontend Development" },
   { value: "api", label: "API & Backend" },
   { value: "fullstack", label: "Full-Stack Project" },
+  { value: "other", label: "Other" },
 ];
 
 interface FormErrors {
@@ -35,6 +37,7 @@ export default function ContactCTA() {
     name: "",
     email: "",
     type: "",
+    customType: "",
     message: "",
   });
 
@@ -55,7 +58,7 @@ export default function ContactCTA() {
     e.preventDefault();
     if (!validate()) return;
     setSubmitted(true);
-    setFormData({ name: "", email: "", type: "", message: "" });
+    setFormData({ name: "", email: "", type: "", customType: "", message: "" });
     setErrors({});
     setTimeout(() => setSubmitted(false), 4000);
   };
@@ -71,7 +74,7 @@ export default function ContactCTA() {
   return (
     <section className="py-20 sm:py-28 lg:py-32 relative overflow-hidden" id="contact" aria-label="Contact">
       {/* Decorative glows */}
-      <div className="glow-violet -bottom-32 left-1/4" />
+      <div className="glow-sapphire -bottom-32 left-1/4" />
       <div className="glow-mint -bottom-20 right-1/4 opacity-40" />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -143,6 +146,25 @@ export default function ContactCTA() {
                 className="sm:col-span-2"
                 id="cta-type"
               />
+              <AnimatePresence>
+                {formData.type === "other" && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="sm:col-span-2"
+                  >
+                    <Input
+                      label="Specify Service"
+                      placeholder="Describe the service you need..."
+                      value={formData.customType}
+                      onChange={(e) => handleChange("customType", e.target.value)}
+                      id="cta-custom-type"
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
               <Textarea
                 label="Message"
                 placeholder="Tell us about your project..."

@@ -26,11 +26,11 @@ export default function Footer() {
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent to-violet flex items-center justify-center font-heading font-bold text-bg text-sm">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent to-sapphire flex items-center justify-center font-heading font-bold text-bg text-sm">
                 JW
               </div>
               <span className="font-heading font-bold text-lg text-text-primary">
-                J-Warriors
+                JW-Tech
               </span>
             </Link>
             <p className="text-text-muted text-sm leading-relaxed max-w-sm">
@@ -111,7 +111,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-text-muted">
-            © {new Date().getFullYear()} J-Warriors. All rights reserved.
+            © {new Date().getFullYear()} JW-Tech. All rights reserved.
           </p>
           <p className="text-xs text-text-muted">
             Crafted with{" "}

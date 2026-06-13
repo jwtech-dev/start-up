@@ -24,7 +24,7 @@ const variants = {
   primary:
     "bg-accent text-bg hover:bg-accent-hover font-semibold",
   secondary:
-    "bg-violet text-white hover:bg-violet-hover font-semibold",
+    "bg-sapphire text-white hover:bg-sapphire-hover font-semibold",
   outline:
     "border border-border hover:border-accent text-text-primary hover:text-accent bg-transparent",
   ghost:
