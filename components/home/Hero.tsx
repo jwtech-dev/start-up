@@ -66,7 +66,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-accent/20 bg-accent/5 mb-8 whitespace-nowrap"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-accent/20 bg-accent/5 mt-6 mb-8 whitespace-nowrap"
         >
           <Sparkles size={14} className="text-accent shrink-0" aria-hidden="true" />
           <span className="text-sm text-accent font-medium">

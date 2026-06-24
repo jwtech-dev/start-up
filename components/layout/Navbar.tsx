@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
@@ -71,9 +72,13 @@ export default function Navbar() {
       >
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group" aria-label="JW-Tech Home">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent to-sapphire flex items-center justify-center font-heading font-bold text-bg text-sm">
-            JW
-          </div>
+          <Image
+            src="/icons/JW-Tech Logo.jpg"
+            alt="JW-Tech logo"
+            width={32}
+            height={32}
+            className="rounded-lg"
+          />
           <span className="font-heading font-bold text-lg text-text-primary group-hover:text-accent transition-colors">
             JW-Tech
           </span>

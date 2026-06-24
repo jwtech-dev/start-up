@@ -110,7 +110,7 @@ export default function ContactPage() {
   };
 
   return (
-    <section className="py-12 sm:py-20 lg:py-24" aria-label="Contact">
+    <section className="pt-6 sm:pt-10 lg:pt-12 pb-12 sm:pb-20 lg:pb-24" aria-label="Contact">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero */}
         <div className="relative mb-4">

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function TeamPage() {
   return (
-    <section className="py-12 sm:py-20 lg:py-24" aria-label="Team overview">
+    <section className="pt-6 sm:pt-10 lg:pt-12 pb-12 sm:pb-20 lg:pb-24" aria-label="Team overview">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero with decorative background */}
         <div className="relative mb-4">
